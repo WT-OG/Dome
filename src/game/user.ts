@@ -136,7 +136,7 @@ Express.get("/account/api/oauth/verify", async (req, res) => {
     })
 })
 
-express.post("/account/api/oauth/token", async (req, res) => {
+Express.post("/account/api/oauth/token", async (req, res) => {
     if (process.env.UseEmailForUserName == false) {
         CurrentAccountName = req.body.username || "Dome_Player"
     }
@@ -162,11 +162,11 @@ express.post("/account/api/oauth/token", async (req, res) => {
     })
 })
 
-express.post("/account/api/oauth/exchange", async (req, res) => {
+Express.post("/account/api/oauth/exchange", async (req, res) => {
     res.json({})
 })
 
-express.get("/account/api/epicdomains/ssodomains", async (req, res) => {
+Express.get("/account/api/epicdomains/ssodomains", async (req, res) => {
     res.json([
         "unrealengine.com",
         "unrealtournament.com",
@@ -175,7 +175,7 @@ express.get("/account/api/epicdomains/ssodomains", async (req, res) => {
     ])
 })
 
-express.post("/fortnite/api/game/v2/tryPlayOnPlatform/account/*", async (req, res) => {
+Express.post("/fortnite/api/game/v2/tryPlayOnPlatform/account/*", async (req, res) => {
     res.setHeader("Content-Type", "text/plain");
     res.send(true);
 })
