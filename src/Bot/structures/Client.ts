@@ -46,7 +46,7 @@ export class ExtendedClient extends Client {
         commandFiles.forEach(async (filePath) => {
             const command: CommandType = await this.importFile(filePath);
             if (!command.name) return;
-            console.log(command);
+            //console.log(command); //Im not doing this monkey bamboo shit, I dont want to log the command
 
             this.commands.set(command.name, command);
             slashCommands.push(command);

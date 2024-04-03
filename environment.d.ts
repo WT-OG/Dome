@@ -4,6 +4,9 @@ declare global {
             botToken: string;
             guildId: string;
             environment: "dev" | "prod" | "debug";
+            port: string;
+            displayname : string;
+            UseEmailForUserName: boolean;
         }
     }
 }
