@@ -1,11 +1,13 @@
+const e = require("express");
+const app = e.Router();
 const iniparser = require("ini");
 var CurrentAccountName = process.env.displayname;
 
-Express.get("/account/api/public/account", async (req, res) => {
+app.get("/account/api/public/account", async (req, res) => {
     var response = [];
 
     if (typeof req.query.accountId == "string") {
-        var accountId = req.query.accountId;
+        var accountIdd = req.query.accountId;
         if (accountId.includes("@")) accountId = accountId.split("@")[0];
 
         response.push({
@@ -31,8 +33,8 @@ Express.get("/account/api/public/account", async (req, res) => {
     res.json(response)
 })
 
-Express.get("/account/api/public/account/:accountId", async (req, res) => {
-    if (process.env.UseEmailForUserName == false) {
+app.get("/account/api/public/account/:accountId", async (req, res) => {
+    if (process.env.UseEmailForUserName == "false") {
         CurrentAccountName = req.params.accountId;
     }
 
@@ -62,7 +64,7 @@ Express.get("/account/api/public/account/:accountId", async (req, res) => {
     })
 })
 
-Express.post("/auth/v1/oauth/token", async (req, res) => {
+app.post("/auth/v1/oauth/token", async (req, res) => {
     res.json({
         "access_token": "SigmaToken",
         "token_type": "bearer",
@@ -75,7 +77,7 @@ Express.post("/auth/v1/oauth/token", async (req, res) => {
     })
 })
 
-Express.get("/epic/id/v2/sdk/accounts", async (req, res) => {
+app.get("/epic/id/v2/sdk/accounts", async (req, res) => {
     res.json([{
         "accountId": CurrentAccountName,
         "displayName": CurrentAccountName,
@@ -85,7 +87,7 @@ Express.get("/epic/id/v2/sdk/accounts", async (req, res) => {
     }])
 })
 
-Express.post("/epic/oauth/v2/token", async (req, res) => {
+app.post("/epic/oauth/v2/token", async (req, res) => {
     res.json({
         "scope": "basic_profile friends_list openid presence",
         "token_type": "bearer",
@@ -103,21 +105,21 @@ Express.post("/epic/oauth/v2/token", async (req, res) => {
     })
 })
 
-Express.get("/account/api/public/account/*/externalAuths", async (req, res) => {
+app.get("/account/api/public/account/*/externalAuths", async (req, res) => {
     res.json([])
 })
 
-Express.delete("/account/api/oauth/sessions/kill", async (req, res) => {
+app.delete("/account/api/oauth/sessions/kill", async (req, res) => {
     res.status(204);
     res.end();
 })
 
-Express.delete("/account/api/oauth/sessions/kill/*", async (req, res) => {
+app.delete("/account/api/oauth/sessions/kill/*", async (req, res) => {
     res.status(204);
     res.end();
 })
 
-Express.get("/account/api/oauth/verify", async (req, res) => {
+app.get("/account/api/oauth/verify", async (req, res) => {
     res.json({
         "token": "sigmatokenlol",
         "session_id": "3c3662bcb661d6de679c636744c66b62",
@@ -136,8 +138,8 @@ Express.get("/account/api/oauth/verify", async (req, res) => {
     })
 })
 
-Express.post("/account/api/oauth/token", async (req, res) => {
-    if (process.env.UseEmailForUserName == false) {
+app.post("/account/api/oauth/token", async (req, res) => {
+    if (process.env.UseEmailForUserName == "false") {
         CurrentAccountName = req.body.username || "Dome_Player"
     }
 
@@ -162,11 +164,11 @@ Express.post("/account/api/oauth/token", async (req, res) => {
     })
 })
 
-Express.post("/account/api/oauth/exchange", async (req, res) => {
+app.post("/account/api/oauth/exchange", async (req, res) => {
     res.json({})
 })
 
-Express.get("/account/api/epicdomains/ssodomains", async (req, res) => {
+app.get("/account/api/epicdomains/ssodomains", async (req, res) => {
     res.json([
         "unrealengine.com",
         "unrealtournament.com",
@@ -175,7 +177,9 @@ Express.get("/account/api/epicdomains/ssodomains", async (req, res) => {
     ])
 })
 
-Express.post("/fortnite/api/game/v2/tryPlayOnPlatform/account/*", async (req, res) => {
+app.post("/fortnite/api/game/v2/tryPlayOnPlatform/account/*", async (req, res) => {
     res.setHeader("Content-Type", "text/plain");
     res.send(true);
 })
+
+module.exports = app;

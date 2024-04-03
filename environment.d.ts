@@ -6,7 +6,7 @@ declare global {
             environment: "dev" | "prod" | "debug";
             port: string;
             displayname : string;
-            UseEmailForUserName: boolean;
+            UseEmailForUserName: string;
         }
     }
 }

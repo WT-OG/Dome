@@ -17,8 +17,7 @@ Express.use(express.static('public'));
 Express.use(cookiepars());
 
 Express.use(require("./structs/main"));
-
-
+Express.use(require("./game/user"));
 
 Express.listen(process.env.port, () => {
     console.log("Dome Is Listening On Port", process.env.port);
